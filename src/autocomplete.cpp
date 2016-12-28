@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstdint>
 #include <ostream>
+#include <fstream>
 
 #include "autocomplete.h"
 
@@ -11,9 +12,30 @@ AutoComplete::AutoComplete() {
     this->root = this->newNode();
 }
 
+AutoComplete::~AutoComplete() {
+  Node* currNode = this->root;
+  if (currNode == NULL) return;
+
+  std::stack<Node*> toDelete;
+  toDelete.push(currNode);
+
+  while (!toDelete.empty()){
+    currNode = toDelete.top();
+    toDelete.pop();
+
+    for (int i = 0; i < 26; i++) {
+      if (currNode->children[i] != NULL){
+        toDelete.push(currNode->children[i]);
+      }
+    }
+    delete currNode;
+  }
+}
+
 Node* AutoComplete::newNode() {
     Node* node = new Node;
     node->val = '\0';
+    node->isEndOfWord = false;
 
     for (int i = 0; i < 26; i++) {
         node->children[i] = NULL;
@@ -131,9 +153,25 @@ std::string AutoComplete::getCompletions(std::string word) {
 }
 
 bool AutoComplete::isLeaf(Node* node) {
+  if (node == NULL) return false;
+
   if (!node->isEndOfWord) return false;
   for (int i = 0; i < 26; i++){
     if (node->children[i] != NULL) return false;
   }
   return true;
+}
+
+void AutoComplete::insertDictionary() {
+  std::string DICTIONARY_FILE = "dictionary.txt";
+  std::ifstream input_file(DICTIONARY_FILE);
+  std::string word;
+
+  if (!input_file){
+    printf("file not opened");
+    return;
+  }
+  while (input_file >> word){
+    this->insert(word);
+  }
 }

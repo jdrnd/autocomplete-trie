@@ -9,8 +9,10 @@ struct Node {
 class AutoComplete{
     public:
         AutoComplete();
+        ~AutoComplete();
 
         void insert(std::string word);
+        void insertDictionary();
         bool contains(std::string word);
         std::string getCompletions(std::string word);
 
@@ -19,7 +21,7 @@ class AutoComplete{
 
         static Node* newNode();
         Node* getNode(std::string substring);
-        bool isLeaf(Node* node);
+        static bool isLeaf(Node* node);
 
         friend class AutoCompleteTest;
 };

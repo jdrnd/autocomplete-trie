@@ -23,6 +23,7 @@ private:
       assert(autocompleter.contains("joel"));
       assert(autocompleter.contains("test"));
       assert(!autocompleter.contains("stuff"));
+      std::cout << "Insertion test passed \n";
     }
 
     void testCompletion(){
@@ -35,23 +36,17 @@ private:
       autocompleter.insert("joela");
       autocompleter.insert("joeldavid");
       result = autocompleter.getCompletions("joel");
-      std::cout << result;
       assert(result == "joel joeldavid joela \n");
+      std::cout << "Completion test passed \n";
 
     }
 
     void testDictImport(){
-      std::ifstream input_file("dictionary.txt");
-      std::string word;
+      autocompleter.insertDictionary();
 
-      if (!input_file){
-        std::cout << "file not opened";
-        return;
-      }
-      while (input_file >> word){
-        autocompleter.insert(word);
-      }
-      std::string result = autocompleter.getCompletions("te");
-      std::cout << result << "\n";
+      std::string result = autocompleter.getCompletions("photosynthesis");
+      std::cout << result;
+      assert(result == "photosynthesis photosynthesises \n");
+      std::cout << "Dictionary import and completions passed \n";
     }
 };
