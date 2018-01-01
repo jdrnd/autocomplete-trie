@@ -1,5 +1,8 @@
 #include <string>
 
+#ifndef SRC_AUTOCOMP_H
+#define SRC_AUTOCOMP_H
+
 struct Node {
     char val;
     Node* children[26]; // size of alphabet
@@ -25,3 +28,5 @@ class AutoComplete{
 
         friend class AutoCompleteTest;
 };
+
+#endif

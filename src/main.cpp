@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "autocompletetest.cpp"
+#include "autocompletetest.h"
 
 
 int main(void) {
