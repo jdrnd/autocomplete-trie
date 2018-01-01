@@ -5,6 +5,8 @@
 #include "autocomplete.h"
 
 
+// TODO make a header file for this!
+
 class AutoCompleteTest {
 public:
     void runTests() {
@@ -28,15 +30,15 @@ private:
 
     void testCompletion(){
       std::string result = autocompleter.getCompletions("jo");
-      assert(result == "joel \n");
+      assert(result == "joel\n\n");
 
       result = autocompleter.getCompletions("te");
-      assert(result == "test \n");
+      assert(result == "test\n\n");
 
       autocompleter.insert("joela");
       autocompleter.insert("joeldavid");
       result = autocompleter.getCompletions("joel");
-      assert(result == "joel joeldavid joela \n");
+      assert(result == "joel\njoeldavid\njoela\n\n");
       std::cout << "Completion test passed \n";
 
     }
@@ -46,7 +48,7 @@ private:
 
       std::string result = autocompleter.getCompletions("photosynthesis");
       std::cout << result;
-      assert(result == "photosynthesis photosynthesises \n");
+      assert(result == "photosynthesis\nphotosynthesises\n\n");
       std::cout << "Dictionary import and completions passed \n";
     }
 };

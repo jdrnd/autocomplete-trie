@@ -146,7 +146,7 @@ std::string AutoComplete::getCompletions(std::string word) {
   }
   std::stringstream allWords;
   for (std::vector<std::string>::iterator it = wordsFound.begin() ; it != wordsFound.end(); ++it){
-    allWords << *it << " ";
+    allWords << *it << "\n";
   }
   allWords << "\n";
   return allWords.str();
